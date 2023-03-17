@@ -3,24 +3,10 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [.blue, Color("lightBlue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all)
+            BackgroundView(topColor: .blue, bottomColor: Color("lightBlue"))
             VStack{
-                Text("London, GB")
-                    .font(.system(size: 32,weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding()
-                VStack(spacing: 0){
-                    Image(systemName: "cloud.sun.fill")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 160,height: 160)
-                    Text("18°")
-                        .font(.system(size: 70, weight: .medium, design: .default))
-                        .foregroundColor(.white)
-                }
-                .padding(.bottom, 40)
+                SityTextViev(sityName: "London, GB")
+                MainWeatherView(imageName: "cloud.sun.fill", temperature: 18)
                 HStack(spacing: 20){
                     WeatherDayView(dayOfWeek: "MON",
                                    imageName: "cloud.sun.fill",
@@ -39,16 +25,7 @@ struct ContentView: View {
                                    temperature: 18)
                 }
                 Spacer()
-                Button{
-                    print("tapped")
-                } label: {
-                    Text("Change Day Time")
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .frame(width: 280, height: 50)
-                        .background(.white)
-                        .cornerRadius(10)
-                }
-                
+                WeatherButton(buttonText: "Change Day Time", textColor: .blue, backgroundColor: .white)
             }
         }
     }
@@ -82,3 +59,41 @@ struct WeatherDayView: View {
         }
     }
 }
+
+struct BackgroundView: View {
+    var topColor: Color
+    var bottomColor: Color
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct SityTextViev: View{
+    var sityName: String
+    var body: some View{
+        Text(sityName)
+            .font(.system(size: 32,weight: .medium, design: .default))
+            .foregroundColor(.white)
+            .padding()
+    }
+}
+
+struct MainWeatherView: View{
+    var imageName: String
+    var temperature: Int
+    var body: some View{
+        VStack(spacing: 0){
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 160,height: 160)
+            Text("\(temperature)°")
+                .font(.system(size: 70, weight: .medium, design: .default))
+                .foregroundColor(.white)
+        }
+        .padding(.bottom, 40)
+    }
+}
+
