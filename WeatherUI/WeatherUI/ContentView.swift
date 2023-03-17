@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [.blue, .white]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(gradient: Gradient(colors: [.blue, Color("lightBlue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("London, GB")
@@ -20,7 +20,7 @@ struct ContentView: View {
                         .font(.system(size: 70, weight: .medium, design: .default))
                         .foregroundColor(.white)
                 }
-                Spacer()
+                .padding(.bottom, 40)
                 HStack(spacing: 20){
                     WeatherDayView(dayOfWeek: "MON",
                                    imageName: "cloud.sun.fill",
@@ -39,6 +39,16 @@ struct ContentView: View {
                                    temperature: 18)
                 }
                 Spacer()
+                Button{
+                    print("tapped")
+                } label: {
+                    Text("Change Day Time")
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .frame(width: 280, height: 50)
+                        .background(.white)
+                        .cornerRadius(10)
+                }
+                
             }
         }
     }
@@ -59,15 +69,15 @@ struct WeatherDayView: View {
     var body: some View {
         VStack{
             Text("\(dayOfWeek)")
-                .font(.system(size: 16,weight: .medium, design: .default))
+                .font(.system(size: 18,weight: .medium, design: .default))
                 .foregroundColor(.white)
             Image(systemName: "\(imageName)")
                 .renderingMode(.original)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 30,height: 30)
+                .frame(width: 50,height: 50)
             Text("\(temperature)°")
-                .font(.system(size: 18, weight: .medium, design: .default))
+                .font(.system(size: 20, weight: .medium, design: .default))
                 .foregroundColor(.white)
         }
     }
